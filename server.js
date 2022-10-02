@@ -1,4 +1,16 @@
 // http://localhost:8080/
+/*************************************************************************
+* WEB322– Assignment 2
+* I declare that this assignment is my own work in accordance with Seneca Academic
+Policy. No part * of this assignment has been copied manually or electronically from any
+other source
+* (including 3rd party web sites) or distributed to other students.
+*
+* Name: Kevin Timachy Student ID: 145075180 Date: 02/10/22
+*
+* Your app’s URL (from Cyclic) :
+*
+*************************************************************************/ 
 
 var express = require("express");
 var path = require("path");
@@ -8,7 +20,8 @@ var data_server = require("./data-server.js");
 
 var HTTP_PORT = process.env.PORT || 8080
 
-app.use(express.static('public'));
+app.use(express.static("public"));
+
 
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "./views/home.html"));
@@ -30,9 +43,10 @@ app.get("/departments", function (req, res) {
     data_server.getDepartments().then(result => res.json(result)).catch(error => res.json(error));
 });
 
-app.use(function (req, res, next) {
-    res.status(404).send("Page Not Found");
+app.use(function (req, res) {
+    res.status(404).sendFile(path.join(__dirname,"./views/404.html"));
 });
+
 
 function onHttpStart()
 {
