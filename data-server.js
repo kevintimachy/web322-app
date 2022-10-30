@@ -65,6 +65,9 @@ exports.getDepartments = function() {
 exports.addEmployee = function (employeeData) {
     return new Promise((resolve, reject) => {
         if (employeeData.isManager == undefined) {
+            employeeData.isManager = false;
+        }
+        else {
             employeeData.isManager = true;
         }
         employeeData.employeeNum = employees.length + 1;
