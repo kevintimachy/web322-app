@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { resolve } = require('path');
 
 var employees = [];
 var departments = [];
@@ -117,5 +118,36 @@ exports.getEmployeeByNum = function (num) {
         }
         else
             reject("no results returned");
+    });
+}
+
+exports.updateEmployee = function (employeeData) {
+    return new Promise((resolve, reject) => {
+        var index = employees.findIndex(emp => emp.employeeNum == employeeData.employeeNum);
+        employees[index].firstName = employeeData.firstName;
+        employees[index].lastName = employeeData.lastName;
+        employees[index].email = employeeData.email;
+        employees[index].SSN = employeeData.SSN;
+        employees[index].addressStreet = employeeData.addressStreet;
+        employees[index].addressCity = employeeData.addressCity;
+        employees[index].addressState = employeeData.addressState;
+        employees[index].addressPostal = employeeData.addressPostal;
+        employees[index].addressCity = employeeData.addressCity;
+        if (employeeData.isManager == undefined) {
+            employees[index].isManager = false;
+        }
+        else {
+            employees[index].isManager = true;
+        }
+        if (isNaN(parseInt(employeeData.employeeManagerNum))) {
+            employees[index].employeeManagerNum = null;
+        }
+        else {
+            employees[index].employeeManagerNum = parseInt(employeeData.employeeManagerNum);
+        }
+        employees[index].status = employeeData.status;
+        employees[index].department = parseInt(employeeData.department);
+        employees[index].hireDate = employeeData.hireDate;
+        resolve();
     });
 }
