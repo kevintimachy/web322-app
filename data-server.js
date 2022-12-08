@@ -47,6 +47,7 @@ var Department = sequelize.define("Department", {
     departmentName : Sequelize.STRING
 });
 
+
              
 exports.initialize = function () {
     return new Promise(function (resolve, reject) {
